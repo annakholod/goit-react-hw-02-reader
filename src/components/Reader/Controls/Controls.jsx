@@ -1,21 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import style from './Controls.module.css';
-import { checkButtonStart, checkButtonEnd } from '../../../helpers/helpers';
 
-const Controls = ({ decrement, increment, count, items }) => (
+const Controls = ({ changeCount, count, items }) => (
   <section className={style.controls}>
     <button
       type="button"
-      className={`${checkButtonStart(style, count)}`}
-      onClick={decrement}
+      name="decrement"
+      className={style.button}
+      disabled={count === 1}
+      onClick={changeCount}
     >
       Назад
     </button>
     <button
       type="button"
-      className={`${checkButtonEnd(style, count, items)}`}
-      onClick={increment}
+      name="increment"
+      className={style.button}
+      disabled={count === items.length}
+      onClick={changeCount}
     >
       Вперед
     </button>
@@ -23,8 +26,7 @@ const Controls = ({ decrement, increment, count, items }) => (
 );
 
 Controls.propTypes = {
-  decrement: PropTypes.func.isRequired,
-  increment: PropTypes.func.isRequired,
+  changeCount: PropTypes.func.isRequired,
   count: PropTypes.number.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({

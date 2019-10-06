@@ -9,16 +9,12 @@ class Reader extends Component {
     count: 1,
   };
 
-  increment = () => {
-    if (this.state.count <= this.props.items.length - 1) {
-      this.setState(prevState => ({ count: prevState.count + 1 }));
-    }
-  };
+  changeCount = ({ target }) => {
+    const { name } = target;
 
-  decrement = () => {
-    if (this.state.count > 1) {
-      this.setState(prevState => ({ count: prevState.count - 1 }));
-    }
+    this.setState(prevState => ({
+      count: name === 'increment' ? prevState.count + 1 : prevState.count - 1,
+    }));
   };
 
   render() {
@@ -28,12 +24,7 @@ class Reader extends Component {
     return (
       <div className={style.reader}>
         <Publication item={items[count - 1]} />
-        <Counter
-          items={items}
-          count={count}
-          increment={this.increment}
-          decrement={this.decrement}
-        />
+        <Counter items={items} count={count} changeCount={this.changeCount} />
       </div>
     );
   }
